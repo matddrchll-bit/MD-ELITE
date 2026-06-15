@@ -165,12 +165,17 @@ header{
 <div class="login-wrap" id="login-view">
   <div class="login-card">
     <h2>Acceso restringido</h2>
-    <p>Ingresa la contraseña de administrador para gestionar productos, stock y ofertas de MD Elite.</p>
+    <p>Inicia sesión con tu cuenta autorizada de Supabase para gestionar productos, stock y ofertas.</p>
+    <div class="field">
+      <label>Correo</label>
+      <input type="email" id="login-email" placeholder="matddrchll@gmail.com"/>
+    </div>
     <div class="field">
       <label>Contraseña</label>
       <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
     </div>
     <button class="btn btn-primary" style="width:100%;padding:.85rem" onclick="login()">Entrar</button>
+    <button class="btn btn-ghost" style="width:100%;padding:.75rem;margin-top:.6rem" onclick="registerAdmin()">Crear acceso inicial</button>
     <div class="err" id="login-err"></div>
   </div>
 </div>
@@ -262,7 +267,7 @@ header{
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script type="text/plain" id="legacy-localstorage-script">
 /* ─── CONFIG ───────────────────────────────────── */
 const ADMIN_PASS   = "mdelite2024"; // ⚠️ Cambia esta contraseña antes de publicar
 const AUTH_KEY     = "md_elite_admin_auth";
@@ -525,5 +530,8 @@ function init(){
   renderOffers();
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>

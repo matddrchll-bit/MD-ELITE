@@ -1156,7 +1156,7 @@ footer::before{
 <div class="toast" id="toast"></div>
 
 <!-- ══════ SCRIPT ═══════════════════════════════════════ -->
-<script>
+<script type="text/plain" id="legacy-localstorage-script">
 /* ─── CONFIG ───────────────────────────────────── */
 const WA = "59172810558"; // WhatsApp MD Elite con código de país
 const PRODUCTS_KEY = "md_elite_products_v1";
@@ -1353,5 +1353,8 @@ let toastT;function showToast(msg){const t=document.getElementById('toast');t.te
 /* ─── INIT ─────────────────────────────────────── */
 renderProducts();renderOffers();refreshCart();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="storefront.js"></script>
 </body>
 </html>
