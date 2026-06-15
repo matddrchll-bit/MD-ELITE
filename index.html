@@ -942,45 +942,11 @@ footer::before{
 
 
 /* ═══════════════════════════════════════════════
-   ADMIN LOCAL — NETLIFY TEMPORAL
+   STOCK / OFERTAS — VISUAL STATES (CLIENTE)
 ═══════════════════════════════════════════════ */
-.admin-btn{
-  background:rgba(108,71,255,.08);border:1px solid rgba(108,71,255,.28);color:var(--white2);
-  padding:.48rem .9rem;border-radius:99px;font-family:var(--fD);font-size:.82rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;transition:var(--t)
-}
-.admin-btn:hover{color:var(--white);border-color:var(--cyan);box-shadow:0 0 18px var(--vg)}
-.admin-panel{position:fixed;inset:0;z-index:2500;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px}
-.admin-panel.on{display:flex}
-.admin-box{width:min(980px,100%);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#090912,#060611);border:1px solid rgba(108,71,255,.28);border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.75),0 0 60px rgba(108,71,255,.12)}
-.admin-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.2rem 1.4rem;border-bottom:1px solid rgba(108,71,255,.16)}
-.admin-head h2{font-family:var(--fD);letter-spacing:.08em;text-transform:uppercase;font-size:1.4rem}
-.admin-close{width:36px;height:36px;border-radius:10px;background:rgba(108,71,255,.12);color:var(--white);font-size:1.1rem}
-.admin-body{padding:1.4rem;display:grid;grid-template-columns:330px 1fr;gap:1.2rem}
-.admin-card{background:rgba(255,255,255,.025);border:1px solid rgba(108,71,255,.14);border-radius:16px;padding:1rem}
-.admin-card h3{font-family:var(--fD);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem;color:var(--v4)}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.admin-field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.7rem}
-.admin-field.full{grid-column:1/-1}
-.admin-field label{font-family:var(--fM);font-size:.58rem;color:var(--gray2);letter-spacing:.13em;text-transform:uppercase}
-.admin-field input,.admin-field textarea,.admin-field select{background:#070711;border:1px solid rgba(108,71,255,.18);border-radius:10px;color:var(--white);padding:.7rem .75rem;outline:none;width:100%}
-.admin-field textarea{height:78px;resize:none}
-.admin-actions{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.7rem}
-.admin-save,.admin-secondary,.admin-danger{border-radius:10px;padding:.72rem 1rem;font-family:var(--fD);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.admin-save{background:linear-gradient(135deg,var(--v),var(--v2));color:#fff}
-.admin-secondary{background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);color:var(--white)}
-.admin-danger{background:rgba(255,59,92,.08);border:1px solid rgba(255,59,92,.28);color:#ff8aa0}
-.admin-list{display:flex;flex-direction:column;gap:.55rem;max-height:540px;overflow:auto;padding-right:4px}
-.admin-row{display:grid;grid-template-columns:44px 1fr auto;gap:.75rem;align-items:center;background:rgba(108,71,255,.04);border:1px solid rgba(108,71,255,.12);border-radius:12px;padding:.65rem}
-.admin-thumb{width:44px;height:44px;border-radius:10px;background:rgba(108,71,255,.1);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:1.35rem}
-.admin-thumb img{width:100%;height:100%;object-fit:cover}
-.admin-row strong{font-family:var(--fD);font-size:.95rem;letter-spacing:.03em}.admin-row small{display:block;color:var(--gray2);font-size:.75rem}
-.admin-row button{padding:.45rem .6rem;border-radius:8px;background:rgba(108,71,255,.12);color:var(--white);font-family:var(--fD);font-weight:700}.admin-row button.del{background:rgba(255,59,92,.12);color:#ff8aa0}
 .stock-pill{display:inline-flex;align-items:center;gap:.3rem;margin-top:.35rem;font-family:var(--fM);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gray2)}
 .stock-pill.ok{color:var(--green)}.stock-pill.low{color:var(--orange)}.stock-pill.out{color:var(--red)}
 .pcard.out{opacity:.58}.padd:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
-.admin-login{padding:1.4rem}.admin-login .admin-card{max-width:420px;margin:0 auto}
-@media(max-width:820px){.admin-body{grid-template-columns:1fr}.admin-grid{grid-template-columns:1fr}.admin-btn{display:inline-flex;padding:.48rem .75rem;font-size:.78rem}}
 
 </style>
 </head>
@@ -1004,7 +970,6 @@ footer::before{
       Carrito
       <span id="cart-count">0</span>
     </button>
-    <button class="admin-btn" id="admin-open" type="button">Admin</button>
     <button class="hbg" id="hbg" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -1015,7 +980,6 @@ footer::before{
   <a href="#ofertas"   onclick="closeMob()">Ofertas</a>
   <a href="#nosotros"  onclick="closeMob()">Nosotros</a>
   <a href="#contacto"  onclick="closeMob()">Contacto</a>
-  <a href="javascript:void(0)" onclick="closeMob();openAdmin()">Admin</a>
 </div>
 
 <!-- ══════ HERO ══════════════════════════════════════ -->
@@ -1039,12 +1003,6 @@ footer::before{
       <a href="#ofertas" class="btn-ghost">
         🔥 Ofertas del Día
       </a>
-    </div>
-    <div class="trust-bar">
-      <div class="trust-item"><div class="trust-num">500+</div><div class="trust-lbl">Productos</div></div>
-      <div class="trust-item"><div class="trust-num">2K+</div><div class="trust-lbl">Clientes</div></div>
-      <div class="trust-item"><div class="trust-num">4.9★</div><div class="trust-lbl">Calificación</div></div>
-      <div class="trust-item"><div class="trust-num">24h</div><div class="trust-lbl">Envío rápido</div></div>
     </div>
   </div>
 </section>
@@ -1158,7 +1116,6 @@ footer::before{
     </ul></div>
     <div class="fcol"><h4>Redes</h4><ul>
       <li><a href="#">Instagram</a></li>
-      <li><a href="#">Facebook</a></li>
       <li><a href="#">TikTok</a></li>
     </ul></div>
   </div>
@@ -1196,28 +1153,17 @@ footer::before{
 
 
 
-<!-- ══════ ADMIN LOCAL ════════════════════════════════ -->
-<div class="admin-panel" id="admin-panel">
-  <div class="admin-box">
-    <div class="admin-head">
-      <h2>Panel MD Elite</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
-    </div>
-    <div id="admin-content"></div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <!-- ══════ SCRIPT ═══════════════════════════════════════ -->
 <script>
 /* ─── CONFIG ───────────────────────────────────── */
 const WA = "59172810558"; // WhatsApp MD Elite con código de país
-const ADMIN_PASS = "mdelite"; // contraseña temporal del panel
-const STORAGE_KEY = "md_elite_products_v1";
-const ORDERS_KEY = "md_elite_orders_v1";
+const PRODUCTS_KEY = "md_elite_products_v1";
+const OFFERS_KEY   = "md_elite_offers_v1";
+const ORDERS_KEY   = "md_elite_orders_v1";
 
-/* ─── DATA ─────────────────────────────────────── */
+/* ─── DATA POR DEFECTO (solo si nunca se usó el panel admin) ─── */
 const DEFAULT_PRODUCTS = [
   {id:1,cat:"teclados",emoji:"⌨️",name:"Razer BlackWidow V3 RGB",desc:"Switches Green, Chroma RGB, 100%.",price:850,stock:5,badge:"",image:"",active:true},
   {id:2,cat:"teclados",emoji:"⌨️",name:"Logitech G Pro X TKL",desc:"Mecánico compacto, switches intercambiables.",price:720,stock:3,badge:"new",image:"",active:true},
@@ -1242,17 +1188,39 @@ const DEFAULT_PRODUCTS = [
 ];
 
 let PRODUCTS = loadProducts();
-const OFFERS=[]; // En esta versión temporal las ofertas se administran como productos normales.
+let OFFERS   = loadOffers();
 let cart={};
-let editingId=null;
-let adminUnlocked=false;
 
-function loadProducts(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_PRODUCTS}catch(e){return DEFAULT_PRODUCTS}}
-function saveProducts(){localStorage.setItem(STORAGE_KEY, JSON.stringify(PRODUCTS));renderProducts(currentFilter());renderAdmin();}
+function loadProducts(){
+  try{
+    const raw = localStorage.getItem(PRODUCTS_KEY);
+    if(raw) return JSON.parse(raw);
+    localStorage.setItem(PRODUCTS_KEY, JSON.stringify(DEFAULT_PRODUCTS));
+    return [...DEFAULT_PRODUCTS];
+  }catch(e){return [...DEFAULT_PRODUCTS]}
+}
+function loadOffers(){
+  try{return JSON.parse(localStorage.getItem(OFFERS_KEY)) || []}catch(e){return []}
+}
 function currentFilter(){return document.querySelector('.fbtn.on')?.dataset.cat || 'todos'}
-function nextId(){return Math.max(0,...PRODUCTS.map(p=>Number(p.id)||0))+1}
 function stockClass(s){return s<=0?'out':s<=2?'low':'ok'}
 function stockText(s){return s<=0?'Agotado':s<=2?`Últimas ${s}`:`Stock: ${s}`}
+
+/* ─── OFERTAS ACTIVAS ──────────────────────────── */
+function todayStr(){const d=new Date();return d.toISOString().slice(0,10)}
+function isOfferActive(o){
+  const t=todayStr();
+  if(o.startDate && t<o.startDate) return false;
+  if(o.endDate && t>o.endDate) return false;
+  return true;
+}
+function activeOfferFor(productId){
+  return OFFERS.find(o=>String(o.productId)===String(productId) && isOfferActive(o)) || null;
+}
+function effectivePrice(p){
+  const off=activeOfferFor(p.id);
+  return off ? Number(off.offerPrice) : Number(p.price);
+}
 
 /* ─── CART ─────────────────────────────────────── */
 function addToCart(id){
@@ -1260,7 +1228,8 @@ function addToCart(id){
   const q=cart[id]?.qty || 0;
   if(p.stock<=0){showToast('⚠️ Producto agotado');return}
   if(q>=p.stock){showToast('⚠️ No hay más stock disponible');return}
-  cart[id]?cart[id].qty++:(cart[id]={p:{...p},qty:1});
+  const price=effectivePrice(p);
+  cart[id]?cart[id].qty++:(cart[id]={p:{...p,price},qty:1});
   refreshCart();showToast('✅ '+p.name+' agregado');
 }
 function chgQty(k,d){
@@ -1289,53 +1258,85 @@ function sendOrder(){
   msg+=`\n💰 *TOTAL: Bs. ${total().toLocaleString('es-BO')}*\n\nHola, quiero confirmar disponibilidad y forma de pago.`;
   const order={date:new Date().toLocaleString('es-BO'),items:Object.values(cart).map(i=>({name:i.p.name,qty:i.qty,price:i.p.price})),total:total(),status:'pendiente'};
   const orders=JSON.parse(localStorage.getItem(ORDERS_KEY)||'[]'); orders.unshift(order); localStorage.setItem(ORDERS_KEY,JSON.stringify(orders));
-  if(confirm('¿Quieres descontar el stock ahora?\nRecomendado solo si el cliente confirmó el pedido.')){
-    keys.forEach(k=>{const prod=PRODUCTS.find(p=>String(p.id)===String(k)); if(prod) prod.stock=Math.max(0,prod.stock-cart[k].qty)});
-    saveProducts(); cart={}; refreshCart();
-  }
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 function sendContactWA(){window.open(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, me comunico desde la web de MD Elite. Quisiera más información.')}`,'_blank')}
 
-/* ─── RENDER ───────────────────────────────────── */
+/* ─── RENDER PRODUCTOS ─────────────────────────── */
 function renderProducts(f='todos'){
   const list=(f==='todos'?PRODUCTS:PRODUCTS.filter(p=>p.cat===f)).filter(p=>p.active!==false);
-  document.getElementById('pgrid').innerHTML=list.map((p,i)=>`
+  document.getElementById('pgrid').innerHTML=list.map((p,i)=>{
+    const off=activeOfferFor(p.id);
+    const price=off?Number(off.offerPrice):Number(p.price);
+    const priceHtml = off
+      ? `<div class="pprice"><small>Bs.</small>${price.toLocaleString('es-BO')} <span style="font-size:.7rem;color:var(--gray);text-decoration:line-through;-webkit-text-fill-color:var(--gray)">Bs. ${Number(p.price).toLocaleString('es-BO')}</span></div>`
+      : `<div class="pprice"><small>Bs.</small>${price.toLocaleString('es-BO')}</div>`;
+    const badge = off ? `<span class="pbadge hot">OFERTA</span>` : (p.badge?`<span class="pbadge ${p.badge}">${p.badge==='new'?'NUEVO':'HOT'}</span>`:'');
+    return `
     <div class="pcard ${p.stock<=0?'out':''}" style="animation-delay:${i*.04}s">
       <div class="pcard-bracket"></div>
       <div class="pimg">
         ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:relative;z-index:1;width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 0 22px rgba(108,71,255,.45))">`:`<span class="emoji">${p.emoji||'📦'}</span>`}
-        ${p.badge?`<span class="pbadge ${p.badge}">${p.badge==='new'?'NUEVO':'HOT'}</span>`:''}
+        ${badge}
       </div>
-      <div class="pinfo"><div class="pcat">${p.cat}</div><div class="pname">${p.name}</div><div class="pdesc">${p.desc}</div><span class="stock-pill ${stockClass(p.stock)}">● ${stockText(p.stock)}</span><div class="pfoot"><div class="pprice"><small>Bs.</small>${Number(p.price).toLocaleString('es-BO')}</div><button class="padd" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id})">${p.stock<=0?'Agotado':'+ Agregar'}</button></div></div>
-    </div>`).join('') || `<p style="color:var(--gray2);text-align:center;grid-column:1/-1">No hay productos en esta categoría.</p>`;
+      <div class="pinfo"><div class="pcat">${p.cat}</div><div class="pname">${p.name}</div><div class="pdesc">${p.desc}</div><span class="stock-pill ${stockClass(p.stock)}">● ${stockText(p.stock)}</span><div class="pfoot">${priceHtml}<button class="padd" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id})">${p.stock<=0?'Agotado':'+ Agregar'}</button></div></div>
+    </div>`;
+  }).join('') || `<p style="color:var(--gray2);text-align:center;grid-column:1/-1">No hay productos en esta categoría.</p>`;
 }
-function renderOffers(){const og=document.getElementById('ogrid'); if(og) og.innerHTML='<div class="ocard"><div class="otag">ADMINISTRABLE</div><div class="oname">Ofertas desde el panel</div><div class="odesc">Para Netlify temporal, crea productos con precio de oferta y badge HOT desde el panel admin.</div></div>';}
 
-/* ─── ADMIN ────────────────────────────────────── */
-function openAdmin(){document.getElementById('admin-panel').classList.add('on');renderAdmin()}
-function closeAdmin(){document.getElementById('admin-panel').classList.remove('on')}
-function renderAdmin(){
-  const box=document.getElementById('admin-content'); if(!box)return;
-  if(!adminUnlocked){box.innerHTML=`<div class="admin-login"><div class="admin-card"><h3>Ingresar</h3><div class="admin-field"><label>Contraseña</label><input id="admin-pass" type="password" placeholder="Contraseña"></div><button class="admin-save" onclick="loginAdmin()">Entrar</button><p style="color:var(--gray2);font-size:.78rem;margin-top:.8rem">Temporal para Netlify. Los cambios se guardan en este navegador.</p></div></div>`;return;}
-  box.innerHTML=`<div class="admin-body"><div class="admin-card"><h3>${editingId?'Editar producto':'Nuevo producto'}</h3>${formHTML()}<div class="admin-actions"><button class="admin-save" onclick="saveProductFromForm()">Guardar</button><button class="admin-secondary" onclick="newProductForm()">Nuevo</button><button class="admin-danger" onclick="resetProducts()">Reset</button></div></div><div class="admin-card"><h3>Productos (${PRODUCTS.length})</h3><div class="admin-list">${PRODUCTS.map(p=>rowHTML(p)).join('')}</div></div></div>`;
-  fillForm();
+/* ─── RENDER OFERTAS ───────────────────────────── */
+function renderOffers(){
+  const og=document.getElementById('ogrid'); if(!og)return;
+  const active=OFFERS.filter(isOfferActive).map(o=>{
+    const p=PRODUCTS.find(x=>String(x.id)===String(o.productId));
+    return p ? {...o, product:p} : null;
+  }).filter(Boolean);
+
+  if(!active.length){
+    og.innerHTML=`<div class="ocard"><div class="otag">Próximamente</div><div class="oname">Aún no hay ofertas activas</div><div class="odesc">Pronto publicaremos descuentos especiales. ¡Síguenos en Instagram y TikTok para no perderte nada!</div></div>`;
+    return;
+  }
+
+  og.innerHTML=active.map(o=>{
+    const p=o.product;
+    const oldPrice=Number(o.oldPrice||p.price);
+    const newPrice=Number(o.offerPrice);
+    const discount=o.discountPercent!=null && o.discountPercent!==''
+      ? Math.round(Number(o.discountPercent))
+      : Math.round(100-(newPrice/oldPrice*100));
+    return `<div class="ocard">
+      <div class="odiscount">-${discount}%</div>
+      <div class="otag">${p.cat}</div>
+      <div class="oname">${p.name}</div>
+      <div class="odesc">${p.desc}</div>
+      <div class="oprices">
+        <span class="oold">Bs. ${oldPrice.toLocaleString('es-BO')}</span>
+        <span class="onew">${newPrice.toLocaleString('es-BO')} <small>Bs.</small></span>
+      </div>
+      <button class="btn-v" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id})">${p.stock<=0?'Agotado':'+ Agregar al carrito'}</button>
+    </div>`;
+  }).join('');
 }
-function loginAdmin(){const v=document.getElementById('admin-pass').value.trim(); if(v===ADMIN_PASS){adminUnlocked=true;renderAdmin();showToast('✅ Admin abierto')}else showToast('Contraseña incorrecta')}
-function formHTML(){return `<div class="admin-grid"><div class="admin-field full"><label>Nombre</label><input id="f-name"></div><div class="admin-field"><label>Precio Bs.</label><input id="f-price" type="number"></div><div class="admin-field"><label>Stock</label><input id="f-stock" type="number"></div><div class="admin-field"><label>Categoría</label><select id="f-cat"><option>teclados</option><option>mouse</option><option>audifonos</option><option>mousepads</option><option>camaras</option><option>accesorios</option></select></div><div class="admin-field"><label>Badge</label><select id="f-badge"><option value="">Sin badge</option><option value="new">Nuevo</option><option value="hot">Hot</option></select></div><div class="admin-field"><label>Emoji</label><input id="f-emoji" placeholder="🖱️"></div><div class="admin-field"><label>Visible</label><select id="f-active"><option value="true">Sí</option><option value="false">No</option></select></div><div class="admin-field full"><label>URL de imagen</label><input id="f-image" placeholder="https://..."></div><div class="admin-field full"><label>Descripción</label><textarea id="f-desc"></textarea></div></div>`}
-function rowHTML(p){return `<div class="admin-row"><div class="admin-thumb">${p.image?`<img src="${p.image}">`:p.emoji||'📦'}</div><div><strong>${p.name}</strong><small>Bs. ${p.price} · ${p.cat} · Stock: ${p.stock} · ${p.active===false?'Oculto':'Visible'}</small></div><div><button onclick="editProduct(${p.id})">Editar</button> <button class="del" onclick="deleteProduct(${p.id})">Borrar</button></div></div>`}
-function fillForm(){const p=PRODUCTS.find(x=>x.id===editingId)||{};['name','price','stock','cat','badge','emoji','image','desc'].forEach(k=>{const el=document.getElementById('f-'+k); if(el) el.value=p[k]??''}); const a=document.getElementById('f-active'); if(a)a.value=String(p.active!==false)}
-function saveProductFromForm(){
-  const p={id:editingId||nextId(),name:val('name'),price:Number(val('price')||0),stock:Number(val('stock')||0),cat:val('cat'),badge:val('badge'),emoji:val('emoji')||'📦',image:val('image'),desc:val('desc'),active:val('active')==='true'};
-  if(!p.name){showToast('Falta el nombre');return}
-  if(editingId){PRODUCTS=PRODUCTS.map(x=>x.id===editingId?p:x)}else{PRODUCTS.unshift(p)}
-  editingId=null;saveProducts();showToast('✅ Producto guardado')
-}
-function val(id){return document.getElementById('f-'+id)?.value.trim()||''}
-function editProduct(id){editingId=id;renderAdmin()}
-function newProductForm(){editingId=null;renderAdmin()}
-function deleteProduct(id){if(confirm('¿Borrar este producto?')){PRODUCTS=PRODUCTS.filter(p=>p.id!==id);saveProducts();showToast('Producto borrado')}}
-function resetProducts(){if(confirm('Esto volverá a los productos de ejemplo. ¿Continuar?')){PRODUCTS=[...DEFAULT_PRODUCTS];localStorage.removeItem(STORAGE_KEY);cart={};refreshCart();editingId=null;saveProducts()}}
+
+/* ─── SINCRONIZACIÓN CON EL PANEL ADMIN ───────────
+   Los productos y ofertas se guardan en localStorage.
+   Si el panel admin se modifica en otra pestaña del
+   MISMO navegador, esta página se actualiza sola. ─── */
+window.addEventListener('storage', e=>{
+  if(e.key===PRODUCTS_KEY || e.key===OFFERS_KEY){
+    PRODUCTS=loadProducts();
+    OFFERS=loadOffers();
+    renderProducts(currentFilter());
+    renderOffers();
+  }
+});
+// Refresco periódico (cubre cambios hechos en la misma pestaña/admin abierto en otra ventana)
+setInterval(()=>{
+  PRODUCTS=loadProducts();
+  OFFERS=loadOffers();
+  renderProducts(currentFilter());
+  renderOffers();
+},4000);
 
 /* ─── UI EVENTS ─────────────────────────────────── */
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>10));
@@ -1344,7 +1345,6 @@ const overlay=document.getElementById('overlay'); const drawer=document.getEleme
 function openCart(){drawer.classList.add('on');overlay.classList.add('on');document.body.style.overflow='hidden'}
 function closeCart(){drawer.classList.remove('on');overlay.classList.remove('on');document.body.style.overflow=''}
 document.getElementById('cart-btn').addEventListener('click',openCart);document.getElementById('cclose').addEventListener('click',closeCart);overlay.addEventListener('click',closeCart);
-document.getElementById('admin-open').addEventListener('click',openAdmin);
 const hbg=document.getElementById('hbg'); const mob=document.getElementById('mob-drawer');
 hbg.addEventListener('click',()=>{hbg.classList.toggle('open');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':''});
 function closeMob(){hbg.classList.remove('open');mob.classList.remove('open');document.body.style.overflow=''}
