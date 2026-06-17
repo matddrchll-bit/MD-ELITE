@@ -459,6 +459,7 @@ nav.scrolled{background:rgba(5,5,9,.97);border-bottom-color:rgba(108,71,255,.2)}
 }
 .pimg .emoji{position:relative;z-index:1;transition:transform .4s ease,filter .4s ease;filter:drop-shadow(0 0 20px rgba(108,71,255,.4))}
 .pcard:hover .pimg .emoji{transform:scale(1.15) rotate(-4deg);filter:drop-shadow(0 0 30px rgba(0,229,255,.6))}
+.pimg .no-image,.cthumb .no-image{position:relative;z-index:1;color:var(--gray2);font-size:.78rem;text-align:center;padding:.5rem}
 
 /* badge */
 .pbadge{
@@ -1583,26 +1584,26 @@ const ORDERS_KEY   = "md_elite_orders_v1";
 
 /* ─── DATA POR DEFECTO (solo si nunca se usó el panel admin) ─── */
 const DEFAULT_PRODUCTS = [
-  {id:1,cat:"teclados",emoji:"⌨️",name:"Razer BlackWidow V3 RGB",desc:"Switches Green, Chroma RGB, 100%.",price:850,stock:5,badge:"",image:"",active:true},
-  {id:2,cat:"teclados",emoji:"⌨️",name:"Logitech G Pro X TKL",desc:"Mecánico compacto, switches intercambiables.",price:720,stock:3,badge:"new",image:"",active:true},
-  {id:3,cat:"teclados",emoji:"⌨️",name:"Redragon K552 Mecánico",desc:"Switches azules, retroiluminación roja.",price:285,stock:8,badge:"",image:"",active:true},
-  {id:4,cat:"mouse",emoji:"🖱️",name:"Logitech G502 HERO",desc:"25.600 DPI, 11 botones, pesas ajustables.",price:540,stock:4,badge:"",image:"",active:true},
-  {id:5,cat:"mouse",emoji:"🖱️",name:"Razer DeathAdder V3",desc:"30K DPI, inalámbrico 90h, 64g.",price:680,stock:2,badge:"new",image:"",active:true},
-  {id:6,cat:"mouse",emoji:"🖱️",name:"HyperX Pulsefire Haste 2",desc:"26K DPI, honeycomb shell, 61g ultraligero.",price:390,stock:6,badge:"",image:"",active:true},
-  {id:7,cat:"audifonos",emoji:"🎧",name:"HyperX Cloud Alpha",desc:"Drivers duales, mic desmontable, 300h.",price:620,stock:4,badge:"",image:"",active:true},
-  {id:8,cat:"audifonos",emoji:"🎧",name:"SteelSeries Arctis Nova Pro",desc:"Hi-Fi, ANC, swapping de batería.",price:1150,stock:1,badge:"new",image:"",active:true},
-  {id:9,cat:"audifonos",emoji:"🎧",name:"Razer BlackShark V2 X",desc:"7.1 virtual, 50mm drivers, cardioide.",price:380,stock:7,badge:"",image:"",active:true},
-  {id:10,cat:"mousepads",emoji:"🟣",name:"SteelSeries QcK Heavy XXL",desc:"900×400mm, microtexturada, base goma.",price:220,stock:10,badge:"",image:"",active:true},
-  {id:11,cat:"mousepads",emoji:"🟣",name:"Razer Strider XXL",desc:"Hybrid cloth/speed, 940×410mm, cosido.",price:310,stock:5,badge:"new",image:"",active:true},
-  {id:12,cat:"mousepads",emoji:"🟣",name:"Logitech G840 XL",desc:"Tela optimizada, antidesliz, 900×400.",price:245,stock:6,badge:"",image:"",active:true},
-  {id:13,cat:"camaras",emoji:"📷",name:"Logitech StreamCam Plus",desc:"1080p/60fps, autoenfoque, USB-C.",price:590,stock:2,badge:"",image:"",active:true},
-  {id:14,cat:"camaras",emoji:"📷",name:"Razer Kiyo Pro Ultra",desc:"4K/30fps, Sony 1/1.2, f/1.7, HDR.",price:980,stock:1,badge:"new",image:"",active:true},
-  {id:15,cat:"camaras",emoji:"📷",name:"Trust Taxon 2K QHD",desc:"2560×1440, micrófono, plug & play.",price:320,stock:5,badge:"",image:"",active:true},
-  {id:16,cat:"accesorios",emoji:"🎮",name:"Corsair MM700 RGB Extendido",desc:"RGB perimetral, carga Qi integrada.",price:460,stock:3,badge:"",image:"",active:true},
-  {id:17,cat:"accesorios",emoji:"🎮",name:"Hub USB-C Gamer 7-en-1",desc:"3×USB-A 3.0, HDMI 4K, PD 100W.",price:185,stock:9,badge:"",image:"",active:true},
-  {id:18,cat:"accesorios",emoji:"🎮",name:"Soporte Auriculares RGB",desc:"Aluminio, RGB, USB, base antidesliz.",price:145,stock:6,badge:"new",image:"",active:true},
-  {id:19,cat:"accesorios",emoji:"🎮",name:"Controlador Xbox Series S",desc:"Bluetooth + USB-C, compatible PC.",price:380,stock:4,badge:"",image:"",active:true},
-  {id:20,cat:"accesorios",emoji:"🎮",name:"Alfombrilla Carga Inalámbrica",desc:"Qi 10W, RGB lateral, tela suave.",price:210,stock:5,badge:"",image:"",active:true}
+  {id:1,cat:"teclados",name:"Razer BlackWidow V3 RGB",desc:"Switches Green, Chroma RGB, 100%.",price:850,stock:5,badge:"",image:"",active:true},
+  {id:2,cat:"teclados",name:"Logitech G Pro X TKL",desc:"Mecánico compacto, switches intercambiables.",price:720,stock:3,badge:"new",image:"",active:true},
+  {id:3,cat:"teclados",name:"Redragon K552 Mecánico",desc:"Switches azules, retroiluminación roja.",price:285,stock:8,badge:"",image:"",active:true},
+  {id:4,cat:"mouse",name:"Logitech G502 HERO",desc:"25.600 DPI, 11 botones, pesas ajustables.",price:540,stock:4,badge:"",image:"",active:true},
+  {id:5,cat:"mouse",name:"Razer DeathAdder V3",desc:"30K DPI, inalámbrico 90h, 64g.",price:680,stock:2,badge:"new",image:"",active:true},
+  {id:6,cat:"mouse",name:"HyperX Pulsefire Haste 2",desc:"26K DPI, honeycomb shell, 61g ultraligero.",price:390,stock:6,badge:"",image:"",active:true},
+  {id:7,cat:"audifonos",name:"HyperX Cloud Alpha",desc:"Drivers duales, mic desmontable, 300h.",price:620,stock:4,badge:"",image:"",active:true},
+  {id:8,cat:"audifonos",name:"SteelSeries Arctis Nova Pro",desc:"Hi-Fi, ANC, swapping de batería.",price:1150,stock:1,badge:"new",image:"",active:true},
+  {id:9,cat:"audifonos",name:"Razer BlackShark V2 X",desc:"7.1 virtual, 50mm drivers, cardioide.",price:380,stock:7,badge:"",image:"",active:true},
+  {id:10,cat:"mousepads",name:"SteelSeries QcK Heavy XXL",desc:"900×400mm, microtexturada, base goma.",price:220,stock:10,badge:"",image:"",active:true},
+  {id:11,cat:"mousepads",name:"Razer Strider XXL",desc:"Hybrid cloth/speed, 940×410mm, cosido.",price:310,stock:5,badge:"new",image:"",active:true},
+  {id:12,cat:"mousepads",name:"Logitech G840 XL",desc:"Tela optimizada, antidesliz, 900×400.",price:245,stock:6,badge:"",image:"",active:true},
+  {id:13,cat:"camaras",name:"Logitech StreamCam Plus",desc:"1080p/60fps, autoenfoque, USB-C.",price:590,stock:2,badge:"",image:"",active:true},
+  {id:14,cat:"camaras",name:"Razer Kiyo Pro Ultra",desc:"4K/30fps, Sony 1/1.2, f/1.7, HDR.",price:980,stock:1,badge:"new",image:"",active:true},
+  {id:15,cat:"camaras",name:"Trust Taxon 2K QHD",desc:"2560×1440, micrófono, plug & play.",price:320,stock:5,badge:"",image:"",active:true},
+  {id:16,cat:"accesorios",name:"Corsair MM700 RGB Extendido",desc:"RGB perimetral, carga Qi integrada.",price:460,stock:3,badge:"",image:"",active:true},
+  {id:17,cat:"accesorios",name:"Hub USB-C Gamer 7-en-1",desc:"3×USB-A 3.0, HDMI 4K, PD 100W.",price:185,stock:9,badge:"",image:"",active:true},
+  {id:18,cat:"accesorios",name:"Soporte Auriculares RGB",desc:"Aluminio, RGB, USB, base antidesliz.",price:145,stock:6,badge:"new",image:"",active:true},
+  {id:19,cat:"accesorios",name:"Controlador Xbox Series S",desc:"Bluetooth + USB-C, compatible PC.",price:380,stock:4,badge:"",image:"",active:true},
+  {id:20,cat:"accesorios",name:"Alfombrilla Carga Inalámbrica",desc:"Qi 10W, RGB lateral, tela suave.",price:210,stock:5,badge:"",image:"",active:true}
 ];
 
 let PRODUCTS = loadProducts();
@@ -1623,6 +1624,7 @@ function loadOffers(){
 function currentFilter(){return document.querySelector('.fbtn.on')?.dataset.cat || 'todos'}
 function stockClass(s){return s<=0?'out':s<=2?'low':'ok'}
 function stockText(s){return s<=0?'Agotado':s<=2?`Últimas ${s}`:`Stock: ${s}`}
+function noImagePlaceholder(){return '<span class="no-image">Sin imagen</span>'}
 
 /* ─── OFERTAS ACTIVAS ──────────────────────────── */
 function todayStr(){const d=new Date();return d.toISOString().slice(0,10)}
@@ -1665,7 +1667,7 @@ function refreshCart(){
   document.getElementById('ctval').innerHTML=total().toLocaleString('es-BO')+'<small> Bs.</small>';
   const el=document.getElementById('clist'); const keys=Object.keys(cart);
   if(!keys.length){el.innerHTML=`<div class="cempty"><div class="cempty-icon">🛒</div><p>Tu carrito está vacío</p><small style="color:var(--gray);font-size:.8rem">Agrega productos desde el catálogo</small></div>`;return;}
-  el.innerHTML=keys.map(k=>{const {p,qty}=cart[k];return `<div class="citem"><div class="cthumb">${p.image?`<img src="${p.image}" alt="">`:p.emoji||'📦'}</div><div class="cdets"><div class="cname">${p.name}</div><div class="csubt">Bs. ${(p.price*qty).toLocaleString('es-BO')}</div><div class="cqty"><button class="qbtn" onclick="chgQty('${k}',-1)">−</button><span class="qnum">${qty}</span><button class="qbtn" onclick="chgQty('${k}',1)">+</button></div></div><button class="cdel" onclick="rmItem('${k}')">🗑️</button></div>`}).join('');
+  el.innerHTML=keys.map(k=>{const {p,qty}=cart[k];return `<div class="citem"><div class="cthumb">${p.image?`<img src="${p.image}" alt="">`:noImagePlaceholder()}</div><div class="cdets"><div class="cname">${p.name}</div><div class="csubt">Bs. ${(p.price*qty).toLocaleString('es-BO')}</div><div class="cqty"><button class="qbtn" onclick="chgQty('${k}',-1)">−</button><span class="qnum">${qty}</span><button class="qbtn" onclick="chgQty('${k}',1)">+</button></div></div><button class="cdel" onclick="rmItem('${k}')">🗑️</button></div>`}).join('');
 }
 
 /* ─── WA + PEDIDOS ─────────────────────────────── */
@@ -1720,7 +1722,7 @@ function renderProducts(f='todos'){
     <div class="pcard ${p.stock<=0?'out':''}" style="animation-delay:${i*.04}s">
       <div class="pcard-bracket"></div>
       <div class="pimg">
-        ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:relative;z-index:1;width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 0 22px rgba(108,71,255,.45))">`:`<span class="emoji">${p.emoji||'📦'}</span>`}
+        ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:relative;z-index:1;width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 0 22px rgba(108,71,255,.45))">`:noImagePlaceholder()}
         ${badge}
       </div>
       <div class="pinfo"><div class="pcat">${p.cat}</div><div class="pname">${p.name}</div><div class="pdesc">${p.desc}</div><span class="stock-pill ${stockClass(p.stock)}">● ${stockText(p.stock)}</span><div class="pfoot">${priceHtml}<button class="padd" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id})">${p.stock<=0?'Agotado':'+ Agregar'}</button></div></div>

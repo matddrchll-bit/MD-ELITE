@@ -16,6 +16,7 @@ function escapeHtml(value = "") {
 }
 
 function safeImageUrl(value = "") {
+  if (String(value).startsWith("data:image/")) return value;
   try {
     const url = new URL(value);
     return ["http:", "https:"].includes(url.protocol) ? url.href : "";
@@ -24,11 +25,14 @@ function safeImageUrl(value = "") {
   }
 }
 
+function noImagePlaceholder() {
+  return '<span class="no-image">Sin imagen</span>';
+}
+
 function mapProduct(row) {
   return {
     id: Number(row.id),
     cat: row.category,
-    emoji: row.emoji || "",
     name: row.name,
     desc: row.description || "",
     price: Number(row.price),
@@ -51,15 +55,41 @@ function mapOffer(row) {
   };
 }
 
-function productPayload() {
+function imageFileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      resolve("");
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      reject(new Error("Selecciona un archivo de imagen valido"));
+      return;
+    }
+    // Base64 funciona ahora; para muchas imagenes grandes conviene migrar a Supabase Storage.
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function productPayload() {
+  const currentProduct = editingProductId
+    ? PRODUCTS.find(product => product.id === editingProductId)
+    : null;
+  const fileInput = document.getElementById("f-image-file");
+  const selectedFile = fileInput.files && fileInput.files[0];
+  const image = selectedFile
+    ? await imageFileToDataUrl(selectedFile)
+    : currentProduct?.image || "";
+
   return {
     name: document.getElementById("f-name").value.trim(),
     price: Number(document.getElementById("f-price").value || 0),
     stock: Number(document.getElementById("f-stock").value || 0),
     category: document.getElementById("f-cat").value,
     badge: document.getElementById("f-badge").value || null,
-    emoji: document.getElementById("f-emoji").value.trim() || "📦",
-    image_url: document.getElementById("f-image").value.trim() || null,
+    image_url: image || null,
     description: document.getElementById("f-desc").value.trim(),
     active: document.getElementById("f-active").value === "true"
   };
@@ -243,7 +273,7 @@ function renderProducts() {
     const image = safeImageUrl(product.image);
     const visual = image
       ? `<img src="${escapeHtml(image)}" alt="">`
-      : escapeHtml(product.emoji || "📦");
+      : noImagePlaceholder();
 
     return `<div class="row">
       <div class="thumb">${visual}</div>
@@ -264,9 +294,10 @@ function renderProducts() {
 function resetProductForm() {
   editingProductId = null;
   document.getElementById("prod-form-title").textContent = "Nuevo producto";
-  ["name", "price", "stock", "emoji", "image", "desc"].forEach(key => {
+  ["name", "price", "stock", "desc"].forEach(key => {
     document.getElementById(`f-${key}`).value = "";
   });
+  document.getElementById("f-image-file").value = "";
   document.getElementById("f-cat").value = "teclados";
   document.getElementById("f-badge").value = "";
   document.getElementById("f-active").value = "true";
@@ -283,15 +314,20 @@ function editProduct(id) {
   document.getElementById("f-stock").value = product.stock ?? "";
   document.getElementById("f-cat").value = product.cat || "teclados";
   document.getElementById("f-badge").value = product.badge || "";
-  document.getElementById("f-emoji").value = product.emoji || "";
-  document.getElementById("f-image").value = product.image || "";
+  document.getElementById("f-image-file").value = "";
   document.getElementById("f-desc").value = product.desc || "";
   document.getElementById("f-active").value = String(product.active !== false);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 async function saveProduct() {
-  const payload = productPayload();
+  let payload;
+  try {
+    payload = await productPayload();
+  } catch (error) {
+    showToast(error.message || "No se pudo leer la imagen");
+    return;
+  }
   if (!payload.name) {
     showToast("Falta el nombre del producto");
     return;
@@ -405,7 +441,7 @@ function renderOffers() {
     const image = product ? safeImageUrl(product.image) : "";
     const visual = image
       ? `<img src="${escapeHtml(image)}" alt="">`
-      : escapeHtml(product?.emoji || "📦");
+      : noImagePlaceholder();
 
     return `<div class="row">
       <div class="thumb">${visual}</div>

@@ -18,6 +18,7 @@ function escapeHtml(value = "") {
 }
 
 function safeImageUrl(value = "") {
+  if (String(value).startsWith("data:image/")) return value;
   try {
     const url = new URL(value);
     return ["http:", "https:"].includes(url.protocol) ? url.href : "";
@@ -26,11 +27,14 @@ function safeImageUrl(value = "") {
   }
 }
 
+function noImagePlaceholder() {
+  return '<span class="no-image">Sin imagen</span>';
+}
+
 function mapProduct(row) {
   return {
     id: Number(row.id),
     cat: row.category,
-    emoji: row.emoji || "",
     name: row.name,
     desc: row.description || "",
     price: Number(row.price),
@@ -210,7 +214,7 @@ function refreshCart() {
     const image = safeImageUrl(p.image);
     const visual = image
       ? `<img src="${escapeHtml(image)}" alt="">`
-      : escapeHtml(p.emoji || "&#128230;");
+      : noImagePlaceholder();
     return `<div class="citem">
       <div class="cthumb">${visual}</div>
       <div class="cdets">
@@ -258,7 +262,29 @@ function sendOrder() {
 }
 
 function sendContactWA() {
-  const message = "Hola, me comunico desde la web de MD Elite. Quisiera mas informacion.";
+  const name = document.getElementById("contact-name").value.trim();
+  const phone = document.getElementById("contact-phone").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const subject = document.getElementById("contact-subject").value.trim();
+  const contactMessage = document.getElementById("contact-message").value.trim();
+  const missing = [];
+  if (!name) missing.push("nombre");
+  if (!phone) missing.push("celular");
+  if (!contactMessage) missing.push("mensaje");
+  if (missing.length) {
+    showToast("Falta completar: " + missing.join(", "));
+    return;
+  }
+
+  const message = `Hola, me comunico desde la web de MD Elite.
+
+Nombre: ${name}
+Celular: ${phone}
+Email: ${email}
+Asunto: ${subject}
+
+Mensaje:
+${contactMessage}`;
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(message)}`, "_blank");
 }
 
@@ -282,7 +308,7 @@ function renderProducts(filter = "todos") {
     const image = safeImageUrl(product.image);
     const visual = image
       ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(product.name)}" style="position:relative;z-index:1;width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 0 22px rgba(108,71,255,.45))">`
-      : `<span class="emoji">${escapeHtml(product.emoji || "&#128230;")}</span>`;
+      : noImagePlaceholder();
 
     return `<div class="pcard ${product.stock <= 0 ? "out" : ""}" style="animation-delay:${index * .04}s">
       <div class="pcard-bracket"></div>
